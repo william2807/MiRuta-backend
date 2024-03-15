@@ -9,35 +9,67 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UsuarioService  {
-    
-    
-    UsuarioController controller = new UsuarioController();
-    
-    public List<Usuario> traerTodos(){
-        return controller.traerTodos();
-        
+          
+    public List<Usuario> traerTodos(){     
+        return null;
     }
-    public Usuario traerUsuario(String documento){
-        return controller.traerUsuario(documento);
+    public void traerUsuario(String documento){
+    
     }
-    public void registrarUsuario(){
-
+    public void registrarUsuario(Usuario usuario){
+        añadirALista(usuario);
     }
     
     public void borrarUsuario(String documento){    
-        controller.borrarUsuario(documento);
+         
+    }
+   //logica de negocio
+    
+    ArrayList<Usuario> listaUsuarios = new ArrayList<>();
+     
+    public void añadirALista(Usuario usu){
+        verificarDatosUnicos(usu);
+        verificarDuplicidad(usu);
+        listaUsuarios.add(usu);
     }
     
-   //logica de negocio
     public void verificarDatosUnicos(Usuario usu){
-      try {
-          if (usu.getNombres() == null || usu.getDocumento() == null) {
-              throw new NullPointerException("Al menos uno de los datos únicos es nulo");
-          }
-      } catch (NullPointerException e) {
-          // Aquí manejas la excepción
-          System.out.println( e.getMessage());
+        
+        for (Usuario usuario : listaUsuarios) {
+            String nombre = usuario.getNombres();
+            String apellidos = usuario.getApellidos();
+            
+            try {
+                 if (usu.getNombres().equals(nombre) || usu.getDocumento().equals(apellidos)) {
+                         throw new IllegalArgumentException("debes ingresar tu nombre y documento valido");
+                }
+              } catch (IllegalArgumentException e) {
+                          System.out.println( e.getMessage());
+        }
       }
-  }
-
+    }
+    
+    public void verificarDuplicidad(Usuario usu){
+        
+        for (Usuario usuario : listaUsuarios) {
+            String documento = usuario.getDocumento();
+            String telefono = usuario.getTelefono();
+            
+            try{
+                 if(usu.getTarjeta_sitp().equals(documento)){
+                          throw new IllegalArgumentException("Lamentamos, pero el numero de tu tarjeta sitp ya esta registrado");
+                }
+            } catch (IllegalArgumentException e){
+                          System.out.println(e.getMessage());
+                }
+            
+            try{
+                if(usu.getTelefono().equals(telefono)){
+                         throw new IllegalArgumentException("lamentamos, intenta un numero valido");
+                }
+            } catch(IllegalArgumentException e){
+                          System.out.println(e.getMessage());
+            }
+        }
+    }
 }
