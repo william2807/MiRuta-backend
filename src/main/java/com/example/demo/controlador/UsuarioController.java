@@ -15,6 +15,9 @@ public class UsuarioController {
     @Autowired
     UsuarioDao usuarioDao;
     
+    @Autowired
+    UsuarioService usuarioService;
+    
     
     @GetMapping("/all")
     public List<Usuario> traerTodos(){
@@ -27,6 +30,7 @@ public class UsuarioController {
     @CrossOrigin(origins = "http://127.0.0.1:5500")
     @PostMapping("/registrar")
     public Usuario registrarUsuario( @RequestBody Usuario usuario){
+        usuarioService.registrarUsuario(usuario);
         return usuarioDao.registrarUsuario(usuario);
     }
     @DeleteMapping("/eliminar/{documento}")

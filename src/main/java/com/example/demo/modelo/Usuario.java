@@ -16,12 +16,12 @@ public class Usuario {
     
     @Getter
     @Setter
-    @Column(name = "nombres", length = 62, nullable = false, unique = true, updatable = false)
+    @Column(name = "nombres", length = 62, nullable = false, updatable = false)
     private String Nombres;
     
     @Getter
     @Setter
-    @Column(name = "apellidos", length = 62, nullable = false, unique = true, updatable = false)
+    @Column(name = "apellidos", length = 62, nullable = false, updatable = false)
     private String Apellidos;
     
     @Getter

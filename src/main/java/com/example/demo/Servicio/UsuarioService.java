@@ -28,48 +28,6 @@ public class UsuarioService  {
     ArrayList<Usuario> listaUsuarios = new ArrayList<>();
      
     public void añadirALista(Usuario usu){
-        verificarDatosUnicos(usu);
-        verificarDuplicidad(usu);
         listaUsuarios.add(usu);
-    }
-    
-    public void verificarDatosUnicos(Usuario usu){
-        
-        for (Usuario usuario : listaUsuarios) {
-            String nombre = usuario.getNombres();
-            String apellidos = usuario.getApellidos();
-            
-            try {
-                 if (usu.getNombres().equals(nombre) || usu.getDocumento().equals(apellidos)) {
-                         throw new IllegalArgumentException("debes ingresar tu nombre y documento valido");
-                }
-              } catch (IllegalArgumentException e) {
-                          System.out.println( e.getMessage());
-        }
-      }
-    }
-    
-    public void verificarDuplicidad(Usuario usu){
-        
-        for (Usuario usuario : listaUsuarios) {
-            String documento = usuario.getDocumento();
-            String telefono = usuario.getTelefono();
-            
-            try{
-                 if(usu.getTarjeta_sitp().equals(documento)){
-                          throw new IllegalArgumentException("Lamentamos, pero el numero de tu tarjeta sitp ya esta registrado");
-                }
-            } catch (IllegalArgumentException e){
-                          System.out.println(e.getMessage());
-                }
-            
-            try{
-                if(usu.getTelefono().equals(telefono)){
-                         throw new IllegalArgumentException("lamentamos, intenta un numero valido");
-                }
-            } catch(IllegalArgumentException e){
-                          System.out.println(e.getMessage());
-            }
-        }
     }
 }
